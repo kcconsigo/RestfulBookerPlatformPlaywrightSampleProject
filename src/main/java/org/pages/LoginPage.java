@@ -38,4 +38,8 @@ public class LoginPage extends BasePage {
     public void clickLogout(){
         logoutButton.click();
     }
+
+    public boolean isLogoutButtonVisible() {
+        return logoutButton.isVisible();
+    }
 }
