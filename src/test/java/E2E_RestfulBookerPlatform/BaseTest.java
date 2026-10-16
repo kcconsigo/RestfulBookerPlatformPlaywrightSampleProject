@@ -21,7 +21,9 @@ public class BaseTest {
         dotenv = Dotenv.load();
         // Start the single underlying driver server instance
         playwright = Playwright.create();
-        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+
+        boolean isCi = System.getenv("CI") != null;
+        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(isCi));
     }
 
     @BeforeMethod
