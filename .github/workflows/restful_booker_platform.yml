@@ -1,0 +1,42 @@
+
+name: Restful Booker Platform
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+      - roomMenu
+  push:
+    branches:
+      - main
+      - roomMenu
+
+jobs:
+  restful-booker-platform:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Build & Install
+        run: mvn -B install -D skipTests --no-transfer-progress
+      - name: Ensure browsers are installed
+        run: mvn clean test -Dtest=LoginTest -U
+      - name: Run tests
+        run: mvn test
+      - name: 'Restful Booker Platform'
+        uses: JetBrains/qodana-action@v2026.2
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+        with:
+          pr-mode: false
+          use-caches: true
+          post-pr-comment: true
+          use-annotations: true
+          upload-result: false
+          push-fixes: 'none'
