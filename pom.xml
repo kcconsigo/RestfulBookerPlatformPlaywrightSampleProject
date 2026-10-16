@@ -8,6 +8,18 @@
     <artifactId>RestfulBookerPlatformPlaywrightJava</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-bom</artifactId>
+                <version>${allure.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 <dependencies>
     <!-- Source: https://mvnrepository.com/artifact/com.microsoft.playwright/playwright -->
     <dependency>
@@ -22,6 +34,12 @@
         <version>3.5.0</version>
     </dependency>
 
+    <dependency>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-testng</artifactId>
+        <scope>test</scope>
+    </dependency>
+
     <!-- Source: https://mvnrepository.com/artifact/org.testng/testng -->
     <dependency>
         <groupId>org.testng</groupId>
@@ -31,13 +49,8 @@
     </dependency>
     <dependency>
         <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter</artifactId>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter</artifactId>
-        <version>RELEASE</version>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.11.0</version>
         <scope>test</scope>
     </dependency>
     <!-- JUnit Jupiter API -->
@@ -64,6 +77,7 @@
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <allure.version>3.0.0</allure.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <build>
