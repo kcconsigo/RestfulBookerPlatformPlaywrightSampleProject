@@ -1,39 +1,37 @@
 package E2E_RestfulBookerPlatform;
 
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.AriaRole;
-import org.pages.AdminPage;
-import org.pages.DashboardPage;
-import org.pages.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+import org.pages.LoginPage;        
+import org.pages.AdminPage;
+import org.pages.DashboardPage;
 
 public class LoginTest extends BaseTest {
 
     @Test
     public void loginTest() {
+        // 1. Initialize your Page Objects
         LoginPage loginPage = new LoginPage(page);
         AdminPage adminPage = new AdminPage(page);
         DashboardPage dashboardPage = new DashboardPage(page);
 
-        String appUrl = dotenv.get("BASE_URL");
+        // 2. Grab environment configurations from your updated .env file
+        String appUrl = dotenv.get("APP_URL");
         String user = dotenv.get("ADMIN_USERNAME");
         String pass = dotenv.get("ADMIN_PASSWORD");
 
+        // 3. Execute the login workflow steps
         loginPage.navigateTo(appUrl);
         adminPage.adminMenuNavigation();
-
         loginPage.login(user, pass);
 
-        Assert.assertTrue(loginPage.isLogoutButtonVisible(),
-                "Logout button should be visible after successful login");
+        // 4. Verify successful login state
+        Assert.assertTrue(loginPage.isLogoutButtonVisible(), "Logout button should be visible after successful login");
 
-        // Log out
+        // 5. Log out cleanly
         loginPage.clickLogout();
 
-        // Debug the actual post-logout page
+        // Debug output to verify page state post-logout
         System.out.println("Current URL: " + page.url());
         System.out.println("Page title: " + page.title());
     }
