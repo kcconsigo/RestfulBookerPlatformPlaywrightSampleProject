@@ -27,9 +27,9 @@ public class RoomPage extends BasePage {
     public boolean verifyRoomPrice(RoomType roomType) {
         String expectedPriceText = roomType.getPriceString() + " per night";
         String actualText = Objects.requireNonNull(page.locator("div.card")
-                        .filter(new Locator.FilterOptions().setHasText(roomType.getTypeName()))
-                        .first()
-                        .textContent());
+                .filter(new Locator.FilterOptions().setHasText(roomType.getTypeName()))
+                .first()
+                .textContent());
 
         return actualText.contains(expectedPriceText);
     }
