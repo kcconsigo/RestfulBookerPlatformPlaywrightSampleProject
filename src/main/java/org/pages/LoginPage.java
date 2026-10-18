@@ -4,6 +4,7 @@ import org.basePage.BasePage;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.LoadState;
 import com.microsoft.playwright.options.WaitUntilState;
 
 public class LoginPage extends BasePage {
@@ -28,7 +29,7 @@ public class LoginPage extends BasePage {
 
     public void navigateTo(String url) {
         page.navigate(url, new Page.NavigateOptions()
-                .setWaitUntil(WaitUntilState.DOMCONTENTLOADED) // correct enum here
+                .setWaitUntil(WaitUntilState.DOMCONTENTLOADED)
                 .setTimeout(60_000));
     }
 
@@ -45,10 +46,9 @@ public class LoginPage extends BasePage {
     }
 
     public void clickLogoutAndWait() {
-        // If logout triggers navigation, click and wait for URL change + DOM ready
         logoutButton.click();
         page.waitForURL("**/", new Page.WaitForURLOptions().setTimeout(20_000));
-        waitForPageToLoad(com.microsoft.playwright.options.LoadState.DOMCONTENTLOADED, 10_000);
+        waitForPageToLoad(LoadState.DOMCONTENTLOADED, 10_000);
     }
 
     public boolean isLogoutButtonVisible() {
