@@ -29,7 +29,7 @@ public class LoginTest extends BaseTest {
 
         Assert.assertTrue(loginPage.isLogoutButtonVisible(),
                 "Logout button should be visible after successful login");
-
+        
         try {
             page.navigate(appUrl + "/admin/rooms",
                     new com.microsoft.playwright.Page.NavigateOptions()
@@ -43,6 +43,8 @@ public class LoginTest extends BaseTest {
             }
         }
 
+        // Use Playwright Java API: navigate, not goto
+        page.navigate(appUrl + "/admin/rooms");
         page.waitForLoadState();
 
         RoomType testRoom = RoomType.DOUBLE;
