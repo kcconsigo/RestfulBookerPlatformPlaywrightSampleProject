@@ -4,27 +4,32 @@ import org.basePage.BasePage;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.WaitUntilState;
 
 public class LoginPage extends BasePage {
 
-    // Define Locators using Playwright's lazy strategies
     private final Locator usernameInput;
     private final Locator passwordInput;
     private final Locator loginButton;
     private final Locator logoutButton;
 
     public LoginPage(Page page) {
-        super(page); // Pass page context to BasePage
+        super(page);
 
-        // Initialize locators safely; they won't query the DOM until acted upon
-        this.usernameInput = page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Username"));
-        this.passwordInput = page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Password"));
-        this.loginButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Login"));
-        this.logoutButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Logout"));
+        this.usernameInput = page.getByRole(AriaRole.TEXTBOX,
+                new Page.GetByRoleOptions().setName("Username"));
+        this.passwordInput = page.getByRole(AriaRole.TEXTBOX,
+                new Page.GetByRoleOptions().setName("Password"));
+        this.loginButton = page.getByRole(AriaRole.BUTTON,
+                new Page.GetByRoleOptions().setName("Login"));
+        this.logoutButton = page.getByRole(AriaRole.BUTTON,
+                new Page.GetByRoleOptions().setName("Logout"));
     }
 
     public void navigateTo(String url) {
-        page.navigate(url);
+        page.navigate(url, new Page.NavigateOptions()
+                .setWaitUntil(WaitUntilState.DOMCONTENTLOADED) // correct enum here
+                .setTimeout(60_000));
     }
 
     public AdminPage login(String user, String pass) {
@@ -32,11 +37,18 @@ public class LoginPage extends BasePage {
         passwordInput.fill(pass);
         loginButton.click();
 
-        // Return an instance of AdminPage instead
         return new AdminPage(page);
     }
-    public void clickLogout(){
+
+    public void clickLogout() {
         logoutButton.click();
+    }
+
+    public void clickLogoutAndWait() {
+        // If logout triggers navigation, click and wait for URL change + DOM ready
+        logoutButton.click();
+        page.waitForURL("**/", new Page.WaitForURLOptions().setTimeout(20_000));
+        waitForPageToLoad(com.microsoft.playwright.options.LoadState.DOMCONTENTLOADED, 10_000);
     }
 
     public boolean isLogoutButtonVisible() {
