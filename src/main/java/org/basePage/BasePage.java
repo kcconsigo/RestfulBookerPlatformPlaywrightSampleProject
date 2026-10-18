@@ -1,47 +1,38 @@
 package org.basePage;
 
-import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.WaitForSelectorState;
+import com.microsoft.playwright.PlaywrightException;
+import com.microsoft.playwright.options.LoadState;
+import com.microsoft.playwright.options.WaitUntilState;
 
 public class BasePage {
     protected Page page;
-    private final Locator pageHeading;
 
-    // The constructor accepts the Page object from Playwright
     public BasePage(Page page) {
         this.page = page;
-        this.pageHeading = page.locator("h1");
-    }
-
-    // Global utility: Get page title
-    public String getPageTitle() {
-        return page.title();
-    }
-
-    public String getPageUrl() {
-        return page.url();
-    }
-
-    public String getHeadingText() { return this.pageHeading.textContent().trim();}
-    public boolean isHeadingVisible() {
-        return this.pageHeading.isVisible();
-    }
-
-    public void waitForUrl(String urlRegex) {
-        page.waitForURL(urlRegex);
     }
 
     public void waitForPageToLoad() {
-        page.waitForLoadState();
+        waitForPageToLoad(LoadState.DOMCONTENTLOADED, 20_000);
     }
-    public void waitForTimeout(double milliseconds) {
-        page.waitForTimeout(milliseconds);
+
+    public void waitForPageToLoad(LoadState state, double timeoutMillis) {
+        page.waitForLoadState(state, new Page.WaitForLoadStateOptions().setTimeout(timeoutMillis));
     }
-    public void waitForElementVisible(String selector) {
-        page.locator(selector).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
-    }
-    public void waitForElementHidden(Locator locator) {
-        locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.HIDDEN));
+
+    public void safeNavigate(String url) {
+        int attempts = 3;
+
+        for (int i = 1; i <= attempts; i++) {
+            try {
+                page.navigate(url, new Page.NavigateOptions()
+                        .setWaitUntil(WaitUntilState.DOMCONTENTLOADED)
+                        .setTimeout(60_000));
+                return;
+            } catch (PlaywrightException e) {
+                System.out.println("safeNavigate attempt " + i + " failed: " + e.getMessage());
+                if (i == attempts) throw e;
+            }
+        }
     }
 }
