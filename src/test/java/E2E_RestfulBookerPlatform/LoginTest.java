@@ -1,9 +1,7 @@
 package E2E_RestfulBookerPlatform;
 
-import com.microsoft.playwright.Page;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import com.microsoft.playwright.options.AriaRole; // Added for the button click
 import org.pages.LoginPage;
 import org.pages.AdminPage;
 import org.pages.DashboardPage;
@@ -33,20 +31,12 @@ public class LoginTest extends BaseTest {
         // Verify successful login state
         Assert.assertTrue(loginPage.isLogoutButtonVisible(), "Logout button should be visible after successful login");
 
-        // 1. Click logout cleanly (this naturally kicks off the redirect)
         loginPage.clickLogout();
 
-        // 2. 🚀 Instead of page.navigate(), just wait for the network requests to finish settling down
-        page.waitForLoadState(com.microsoft.playwright.options.LoadState.NETWORKIDLE);
+        loginPage.waitForPageToLoad();
 
-        // If the logout function doesn't automatically take you to the root home page,
-        // you can cleanly go back to the base URL here without getting aborted:
-        if (!page.url().equals(appUrl + "/")) {
-            page.navigate(appUrl);
-            page.waitForLoadState(com.microsoft.playwright.options.LoadState.NETWORKIDLE);
-        }
+        page.waitForTimeout(1000);
 
-        // 3. Run your public room validations (now using div.hotel-room)
         RoomType testRoom = RoomType.DOUBLE;
         boolean isPriceCorrect = roomPage.verifyRoomPrice(testRoom);
         Assert.assertTrue(isPriceCorrect, "The pricing layout failed validation for: " + testRoom.getTypeName());
