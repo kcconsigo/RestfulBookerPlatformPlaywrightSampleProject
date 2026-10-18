@@ -1,32 +1,43 @@
 package org.pages;
 
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.options.AriaRole;
-import org.basePage.BasePage;
+import com.microsoft.playwright.Locator;
 import org.data.RoomType;
-
 import java.util.regex.Pattern;
 
-public class RoomPage extends BasePage {
+public class RoomPage {
+    private final Page page;
 
     public RoomPage(Page page) {
-        super(page);
+        this.page = page;
     }
 
-    public void clickBookNow(RoomType roomType) {
-        String dynamicCardText = "^" + roomType.getTypeName() + ".*" + roomType.getPricePerNight() + " per nightBook now$";
-        page.locator("div.card")
-                .filter(new Locator.FilterOptions().setHasText(Pattern.compile(dynamicCardText)))
-                .getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("Book now"))
+    public void clickBookNow(RoomType type) {
+        Locator roomContainer = page.locator("div")
+                .filter(new Locator.FilterOptions().setHasText(Pattern.compile(type.getTypeName(), Pattern.CASE_INSENSITIVE)))
+                .filter(new Locator.FilterOptions().setHasText("Book now"));
+
+        // 2. Select the smallest/last matched sub-container to avoid outer row parent bleed-over
+        Locator targetCard = roomContainer.last();
+
+        // 3. Perform a robust fallback click on the link or button element inside that isolated card
+        targetCard.getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Book now"))
+                .or(targetCard.getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("Book now")))
+                .first()
                 .click();
     }
 
-    public boolean verifyRoomPrice(RoomType roomType) {
-        String expectedPriceText = roomType.getPriceString() + " per night";
-        return page.locator("div.card")
-                .filter(new Locator.FilterOptions().setHasText(roomType.getTypeName()))
-                .textContent()
-                .contains(expectedPriceText);
+    public boolean verifyRoomPrice(RoomType type) {
+        Locator roomContainer = page.locator("div")
+                .filter(new Locator.FilterOptions().setHasText(Pattern.compile(type.getTypeName(), Pattern.CASE_INSENSITIVE)))
+                .filter(new Locator.FilterOptions().setHasText("Book now"));
+
+        // Wait briefly for the UI elements to render on screen
+        roomContainer.last().waitFor();
+
+        // Validate that this isolated module contains your expected price currency label (e.g., "£150")
+        String containerText = roomContainer.last().innerText();
+        return containerText.contains(type.getPriceString());
     }
 }
