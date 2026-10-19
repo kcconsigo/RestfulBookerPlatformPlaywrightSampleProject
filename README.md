@@ -3,7 +3,7 @@
 
 <h3><br>This Automation Framework use to test the Web UI and API on Restful Booker Platform to let the end users to select the room and book their dates</br></h3>
 
-</h1>👩‍💻 Tech Stack </h1>
+<h1>👩‍💻 Tech Stack </h1>
 
 Playwright: is an open-source browser automation and end-to-end testing framework developed by Microsoft 
 
