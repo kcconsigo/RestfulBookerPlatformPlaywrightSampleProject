@@ -18,7 +18,9 @@ Github Actions workflow, Cron Job Scheduled run, GIT and GitKraken, Applying Com
 https://github.com/kcconsigo/RestfulBookerPlatformPlaywrightSampleProject.git
 
 💡 Overview
-FixHub is a powerful and intuitive issue tracker built using Next.js and SQL, designed to streamline bug management and project tracking. With a focus on efficiency and user-friendliness, FixHub allows for seamless creation, viewing, updating, and deletion of issues. Key features include:
+<h1>Playwright Java TestNG Project: Restful Booker Platform</h1>
+
+<h3><br>This Automation Framework use to test the Web UI and API on Restful Booker Platform to let the end users to select the room and book their dates</br></h3>
 
 ✨ Features
 🔐 User Authentication and Access Control: Secure login and personalized access levels ensure that only authorized users can manage or view issues.
