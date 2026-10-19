@@ -15,6 +15,6 @@ Page Object Model, Object Oriented Programming
 Github Actions workflow, Cron Job Scheduled run, GIT and GitKraken, Applying Commit and Pull Request Standards
 
 <h3>Installation</h3>
-
+https://github.com/kcconsigo/RestfulBookerPlatformPlaywrightSampleProject.git
 
 
