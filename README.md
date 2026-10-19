@@ -17,8 +17,8 @@ Github Actions workflow, Cron Job Scheduled run, GIT and GitKraken, Applying Com
 <h3>Installation</h3>
 https://github.com/kcconsigo/RestfulBookerPlatformPlaywrightSampleProject.git
 
-💡 Overview
-<h1>Playwright Java TestNG Project: Restful Booker Platform</h1>
+<h1>💡 Overview</h1>
+<h3>Playwright Java TestNG Project: Restful Booker Platform</h3>
 
 <h3><br>This Automation Framework use to test the Web UI and API on Restful Booker Platform to let the end users to select the room and book their dates</br></h3>
 
