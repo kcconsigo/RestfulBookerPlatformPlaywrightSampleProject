@@ -13,7 +13,7 @@ Java: Programming Language used to Design this scalable Automation Framework.
 
 Github Actions: Automate, customize, and execute your software development workflows right in your repository with GitHub Actions
 
-Test Automation Framework: an open-source automated testing framework for the Java programming language
+TestNG Test Automation Framework: an open-source automated testing framework for the Java programming language
 
 Postman API: a leading collaborative platform for building, executing, and automating API testing.
 
