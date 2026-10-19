@@ -6,5 +6,9 @@
 
 Playwright Java, Playwright CRX, Github Copilot and MCP AI
 
+<h4>Design Pattern Techniques:</h4>
+
+Page Object Model, Object Oriented Programming
+
 
 
