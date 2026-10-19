@@ -10,5 +10,9 @@ Playwright Java, Playwright CRX, Github Copilot and MCP AI
 
 Page Object Model, Object Oriented Programming
 
+<h4>DevOps Tools and Practices:h4>
+
+Github Actions workflow, Cron Job Scheduled run, GIT and GitKraken, Applying Commit and Pull Request Standards
+
 
 
