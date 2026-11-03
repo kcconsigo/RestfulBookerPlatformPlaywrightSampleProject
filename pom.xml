@@ -65,6 +65,19 @@
         <artifactId>dotenv-java</artifactId>
         <version>3.2.0</version>
     </dependency>
+    <!-- Used to parse and assert raw API string responses in test scripts -->
+    <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.11.0</version>
+    </dependency>
+
+    <!-- Automatically handles converting your Payload POJO objects into JSON strings -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.17.2</version>
+    </dependency>
 </dependencies>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
