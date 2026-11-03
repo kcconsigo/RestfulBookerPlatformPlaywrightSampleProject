@@ -2,9 +2,9 @@
 name: Restful Booker Platform
 on:
   push:
-    branches: [ roomMenu ]
+    branches: [ apiRoomTesting]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, apiRoomTesting ]
   schedule:
     - cron: '30 5 * 1-12 2,5,6'
     - cron: '30 5,17 * 1-12 2,5,6'
