@@ -7,6 +7,10 @@
 
 Playwright: is an open-source browser automation and end-to-end testing framework developed by Microsoft 
 
+Playwright crx or codegen: directly into your normal browser window. Developed by Rui Figueira, it allows you to record browser actions, pick locators, and generate test scripts without needing to launch a separate command-line inspector.
+
+Github Copilot: is an AI-powered coding assistant and pair programmer used to help developers write, understand, test, and ship software.
+
 Maven: A Build Management Tool
 
 Java: Programming Language used to Design this scalable Automation Framework.
