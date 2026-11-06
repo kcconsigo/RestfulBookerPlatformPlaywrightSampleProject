@@ -92,10 +92,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.0</version>
                 <configuration>
-                    <!-- 1. Force use of TestNG provider by name -->
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
+                    <parallel>classes</parallel>
+                    <threadCount>2</threadCount>
                 </configuration>
                 <dependencies>
                     <!-- 2. Explicitly bind the provider engine directly to the execution tool plugin -->
